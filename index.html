@@ -20,79 +20,91 @@
         }
         .table{
             position:absolute;
-            top:6cm;
+            top:8cm;
         }
         .initial{
             position: absolute;
+            top:4.5cm;
             left: 1cm;
         }
         .init-hour{
             position: absolute;
-            top: 4.5cm;
+            top: 6.5cm;
         }
         .init-minute{
             position: absolute;
-            top: 4.5cm;
+            top: 6.5cm;
             left:3cm;
         }
         .init-second{
             position: absolute;
-            top: 4.5cm;
+            top: 6.5cm;
             left:6cm;
         }
         .f-hour{
             position: absolute;
-            top: 4.5cm;
-            left:9.7cm;
+            top: 6.5cm;
+            left:10.5cm;
         }
         .f-minute{
             position: absolute;
-            top: 4.5cm;
-            left:12.7cm;
+            top: 6.5cm;
+            left:13.7cm;
         }
         .f-second{
             position: absolute;
-            top: 4.5cm;
-            left:16cm;
+            top: 6.5cm;
+            left:17.3cm;
         }
         .final{
             position:absolute;
+            top: 4.5cm;
             left: 13cm;
         }
         .price{
             position:absolute;
-            left: 25cm;
+            left: 33cm;
             top:3.7cm;
         }
         .price-bar{
             position:absolute;
-            left: 25cm;
+            left: 33cm;
             top:5cm;
+        }
+        .result1{
+            position:absolute;
+            left: 33cm;
+            top:8cm;
+        }
+        .result2{
+            position:absolute;
+            left: 33cm;
+            top:11cm;
         }
         .total{
             position: absolute;
-            left: 25cm;
+            left: 33cm;
             top: 7cm;
         }
         .total-price{
             position: absolute;
-            left: 25cm;
+            left: 33cm;
             top:10cm;
         }
         .button1{
             position: absolute;
-            top:5.5cm;
-            left:20.5cm;
+            top:6.5cm;
+            left:23cm;
         }
         .button2{
             position: absolute;
-            top:6.5cm;
-            left:20.5cm;
+            top:7.5cm;
+            left:23cm;
         }
         .button3{
             position: absolute;
-            top:7.5cm;
-            left:20.5cm;
+            top:9cm;
+            left:23.3cm;
         }
     </style>
     <body>
@@ -114,11 +126,30 @@
                 cell6.innerHTML = document.getElementById("final-second").innerHTML;
             }
             function deleteRow() {
-                var table = document.getElementById("time");
+                var table = document.getElementById("time");                
                 var rowCount = table.rows.length;
                 if(rowCount>1){
-                    table.deleteRow(rowCount -1);
+                    table.deleteRow(rowCount-1);
                 }                
+            }
+            function calculate(){
+                var totalMinutes = 0;
+                var price = document.getElementById("mount").value;
+                var table = document.getElementById("time");
+                var rowCount = table.rows.length;
+
+                for (var i=0;i<rowCount;i++){
+                    //falta recorrer la tabla
+                }
+                totalMinutes = ((parseFloat(document.getElementById("final-hours").value)-parseFloat(document.getElementById("initial-hours").value))*60)+parseFloat(totalMinutes);
+                totalMinutes = (parseFloat(document.getElementById("final-minutes").value)-parseFloat(document.getElementById("initial-minutes").value))+parseFloat(totalMinutes);
+                totalMinutes = ((parseFloat(document.getElementById("final-seconds").value)-parseFloat(document.getElementById("initial-seconds").value))/60)+parseFloat(totalMinutes);
+
+                console.log(table.rows)
+                document.getElementById("result1").innerHTML = totalMinutes;
+                price = price*totalMinutes;
+                price = '$'+price;
+                document.getElementById("result2").innerHTML = price;
             }
         </script>
         <h1 class="title">CALCULADORA DE TIEMPOS</h1>
@@ -126,8 +157,10 @@
         <h2 class="initial">Tiempo Inicial</h2>
         <h2 class="final">Tiempo Final</h2>
         <h2 class="total">Total Tiempo [Minutos]</h2>
+        <h2 class="result1" id="result1">0</h2>
         <h2 class="total-price">Costo Total</h2>
-        <h2 class="price">Valor Hora (COP)</h2>
+        <h2 class="result2" id="result2">$0</h2>
+        <h2 class="price">Valor Minuto (COP)</h2>
         <input id="mount" class="price-bar" type="number" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$0.00"/>
         <h3 class="init-hour">Hora(s)</h3>
         <h3 class="init-minute">Minuto(s)</h3>
@@ -135,10 +168,11 @@
         <h3 class="f-hour">Hora(s)</h3>
         <h3 class="f-minute">Minuto(s)</h3>
         <h3 class="f-second">Segundo(s)</h3>
+
         <table class="table" id="time">
         <tr>
         <td id="initial-hour" style="padding-right: 2cm;">
-            <select name="initial-hours">
+            <select name="initial-hours" id="initial-hours">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -155,7 +189,7 @@
             </select>
         </td>
         <td id="initial-minute" style="padding-right: 2.3cm;">
-            <select name="initial-minutes">
+            <select name="initial-minutes" id="initial-minutes">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -219,7 +253,7 @@
             </select>
         </td>
         <td id="initial-second"  style="padding-right: 2.3cm;">
-            <select name="initial-minutes">
+            <select name="initial-seconds" id="initial-seconds">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -283,7 +317,7 @@
             </select>
         </td>
         <td id="final-hour"  style="padding-right: 2.3cm;">
-            <select name="final-hours">
+            <select name="final-hours" id="final-hours">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -300,7 +334,7 @@
             </select>
         </td>
         <td id="final-minute"  style="padding-right: 2.3cm;">
-            <select name="initial-minutes">
+            <select name="final-minutes" id="final-minutes">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -364,7 +398,7 @@
             </select>
         </td>
         <td id="final-second"  style="padding-right: 2.3cm;">
-            <select name="initial-minutes">
+            <select name="final-seconds" id="final-seconds">
                 <option value=0>0</option>
                 <option value=1>1</option>
                 <option value=2>2</option>
@@ -431,6 +465,6 @@
         </table>
         <button type="button" class="button1" onclick=addRow()>Añadir Registro</button>
         <button type="button" class="button2" onClick=deleteRow()>Borrar Registro</button>
-        <button type="button" class="button3">Calcular</button>
+        <button type="button" class="button3" onClick=calculate()>CALCULAR</button>
     </body>
 </html>
